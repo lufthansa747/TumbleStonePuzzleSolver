@@ -7,6 +7,7 @@ pp = pprint.PrettyPrinter(indent=4)
 BLOCKER_BLOCK = 100
 CHANGER_BLOCK_BLOCKING = 101
 CHANGER_BLOCK_UNBLOCKING = 102
+WILD_BLOCK = 9
 
 def numRowsInCol( puzzleBoard, col):
     count = 0
@@ -66,7 +67,7 @@ def isPuzzleDead( puzzleBoard, curRemoveType):
         return False
 
     for i in range(0, 5):
-        if bottomRow[i] == curRemoveType:
+        if bottomRow[i] == WILD_BLOCK or bottomRow[i] == curRemoveType:
             return False
     return True
 
@@ -85,7 +86,7 @@ def isValidTake( takeAt, puzzleBoard, curRemoveType):
     if bottomRow[takeAt] == 0 or bottomRow[takeAt] == BLOCKER_BLOCK or bottomRow[takeAt] == CHANGER_BLOCK_BLOCKING:
         return False 
 
-    if curRemoveType == 0:
+    if curRemoveType == 0 or bottomRow[takeAt] == WILD_BLOCK:
         return True
     return bottomRow[takeAt] == curRemoveType
 
